@@ -1,0 +1,5 @@
+*.log
+__pycache__
+file.html
+file.txt
+
