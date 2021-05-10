@@ -4,10 +4,6 @@ Use Bing to scrape about 50 linkedin urls. You should be able to see a Profile C
 Use that card and parse it to get the person's current company and current title along with other possible data that you may see.
 You might want to use parameters like "setmkt=en-US" in the search url to get the profile card on the right side.
 
-Feel free to call me if you have any questions or need clarity/help. I am available at 7566691762. 
-
-
-
 Input is essentially the linkedin url of a person. 
 My objective is to find the latest work experience of that person. 
 Check what suits best
@@ -150,34 +146,4 @@ print(ln.scrap())
 
 
 
-
-
-
-
-
-
-#try:
-#    driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
-#    URL = "https://www.bing.com/search?q=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fbrett&qs=n&form=QBRE&sp=-1&pq=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fbrett&sc=0-33&sk=&cvid=52A121142D6748FD8F800B9362E0161B&setmkt=en-US"
-#    URL = "https://www.bing.com/search?q=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fghoshkoushik&qs=n&form=QBRE&sp=-1&pq=https%3A%2F%2Fwww.linkedin.com%2Fin%2Fghoshkoushik&sc=1-40&sk=&cvid=7B2B6D9B0915488685818377717B5114&setmkt=en-US"
-#    driver.get(URL)
-#    
-#    #WebDriverWait(driver,45).until(EC.presence_of_element_located((By.CLASS_NAME,'b_caption')))
-#    WebDriverWait(driver, 45).until(EC.presence_of_element_located((By.CSS_SELECTOR,'.b_caption')))
-#    
-#    name = driver.find_element_by_css_selector(".b_entityTitle")
-#    position = driver.find_elements_by_css_selector(".b_entitySubTitle")
-#    desc = driver.find_element_by_css_selector(".spl-spli-desc > span")
-#
-#
-#    pos = [elem.text for elem in position]
-#    names = name.text    
-#    print(desc.get_attribute("title"))
-#
-#    driver.close()
-#    driver.quit()
-#
-#    print(pos,names)
-#except Exception as ex:
-#    print(ex)
 
