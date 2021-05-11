@@ -8,9 +8,7 @@ Input is essentially the linkedin url of a person.
 My objective is to find the latest work experience of that person. 
 Check what suits best
 '''
-#import requests
-#from selenium import webdriver
-#from webdriver_manager.firefox import GeckoDriverManager
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -38,7 +36,7 @@ class LinkedinSERP:
         self.driver.close()
         self.driver.quit()
 
-    def __css_selector_or_none(self,selector,find_inside_element=None):
+    def __css_selector_or_not_found(self,selector,find_inside_element=None):
         """find element using CSS selector and returns text out of it,if fails returns 'Not Found!'
             if element is not found it returns, 
             if element is found, it returns text of the element that havw been found
@@ -78,18 +76,18 @@ class LinkedinSERP:
             #time.sleep(5) #for browser not loading quickly, mostly old machine's browser, they take time to render pages, so waiting 5 seconds is sufficient for them
         except WebDriverException:
             #in case if the try block element is not found, it means card did not appear
-            self.driver.close() #close the current tab  
-            self.driver.quit()  #quit firefox means, create entire process of firefox
+            #close the current tab and   
+            self.__dispose_driver  #quit firefox means, create entire process of firefox
             return json.dumps({"error":"Card did not appeared!"})
         
-        name = self.__css_selector_or_none('.spl-spli-ftl-tit > h2')
-        profession = self.__css_selector_or_none(".spl-spli-ftl-prof") #current profession of a person
+        name = self.__css_selector_or_not_found('.spl-spli-ftl-tit > h2')
+        profession = self.__css_selector_or_not_found(".spl-spli-ftl-prof") #current profession of a person
         bio = self.__find_desc()
 
         #scraping through experience and education section
-        experience_company = self.__css_selector_or_none(".spl-spli-dg-group-head-data") 
-        experience_profession = self.__css_selector_or_none(".splm-spli-dg-group-prp-highlight")
-        tenure = self.__css_selector_or_none(".spl-spli-dg-group-prp > span.b_demoteText")
+        experience_company = self.__css_selector_or_not_found(".spl-spli-dg-group-head-data") 
+        experience_profession = self.__css_selector_or_not_found(".splm-spli-dg-group-prp-highlight")
+        tenure = self.__css_selector_or_not_found(".spl-spli-dg-group-prp > span.b_demoteText")
         try:
             education = self.driver.find_elements_by_css_selector(".spl-spli-dg-group")
             #len of experience and education must be 3, for education and experience to available
@@ -100,9 +98,9 @@ class LinkedinSERP:
         except NoSuchElementException:
             education = ''
 
-        institute = self.__css_selector_or_none("a.spl-spli-dg-group-prp",education) #find element inside element thats why passing education variable
-        course = self.__css_selector_or_none("div.splm-spli-dg-group-prp-highlight",education)
-        course_tenure = self.__css_selector_or_none(".spl-spli-dg-group-prp > span.b_demoteText",education)
+        institute = self.__css_selector_or_not_found("a.spl-spli-dg-group-prp",education) #find element inside element thats why passing education variable
+        course = self.__css_selector_or_not_found("div.splm-spli-dg-group-prp-highlight",education)
+        course_tenure = self.__css_selector_or_not_found(".spl-spli-dg-group-prp > span.b_demoteText",education)
         
         data = {
             "name" : name,
@@ -119,8 +117,8 @@ class LinkedinSERP:
                 "course_tenure" : course_tenure
             }
         }
-        self.__dispose_driver()
-        return json.dumps(data)
+        self.__dispose_driver() #close the browser and all its window
+        return json.dumps(data) #returns data in JSON format
 
         
 
