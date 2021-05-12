@@ -12,11 +12,8 @@ Check what suits best
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from selenium.webdriver.chrome.options import Options as ChromeOptions
 from init import Initializer
 from selenium.common.exceptions import WebDriverException,NoSuchElementException
-import time
 import json
 
 
@@ -123,12 +120,18 @@ class LinkedinSERP:
         
 
 
-ln = LinkedinSERP('https://www.linkedin.com/in/jim-tuccillo-02378a6')
-print(ln.scrap())
 
+def read_file(filename):
+    URLS = list()
+    with open(filename,'r',encoding='utf-8') as file:
+        URLS.extend(file.readlines())
+        file.close()
+    return URLS
 
-
-
+filename = 'file.txt'
+URL = read_file(filename)
+scraper = LinkedinSERP(URL[0])
+print(scraper.scrap())
 
 
 
