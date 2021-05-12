@@ -18,10 +18,9 @@ import json
 
 
 class LinkedinSERP:
-    def __init__(self,query,browser="firefox"):
+    def __init__(self,browser="firefox"):
         self.browser = browser
-        self.query = f'site:linkedin.com/in {query.split("/")[-1]}'
-        self.URL = f"https://www.bing.com/search?q={self.query}&setmkt=en-US"
+        #self.query = f'site:linkedin.com/in {query.split("/")[-1]}'
         self.driver = ''
     
     def __start_driver(self):
@@ -56,12 +55,25 @@ class LinkedinSERP:
             return self.driver.find_element_by_css_selector(".spl-spli-desc > span").get_attribute('title')
         except NoSuchElementException:
             return "Not Found"
+    
+    def __navigate(self,URL):
+        if self.driver == "":
+            self.__start_driver() #initialize the driver, this creates an instance of webdriver.browser()
+        self.driver.get(URL)
 
-    def scrap(self):
+    def scrap_multiple(self,list_of_profile):
+        data = {}
+        for URL in list_of_profile:
+            data[URL] = self.scrap(URL,is_list=True)
+        self.__dispose_driver()
+        return data
+
+
+    def scrap(self,URL,is_list=False):
         """scraps the data from card"""
-        self.__start_driver()           #initialize the driver, this creates an instance of webdriver.browser()
-        
-        self.driver.get(self.URL)   #navigate to the URL
+        query = f'site:linkedin.com/in {URL.split("/")[-1]}'
+        navigate_url = f"https://www.bing.com/search?q={query}&setmkt=en-US"
+        self.__navigate(navigate_url)
         
         #wait until elements load that element with class .b_caption is visible
         WebDriverWait(self.driver, 45).until(EC.presence_of_element_located((By.CSS_SELECTOR,'.b_caption')))
@@ -73,8 +85,10 @@ class LinkedinSERP:
             #time.sleep(5) #for browser not loading quickly, mostly old machine's browser, they take time to render pages, so waiting 5 seconds is sufficient for them
         except WebDriverException:
             #in case if the try block element is not found, it means card did not appear
-            #close the current tab and   
-            self.__dispose_driver  #quit firefox means, create entire process of firefox
+            if not is_list: #if theres a list then do not close the tab, just change the URL
+                #close the current
+                self.__dispose_driver()  #quit firefox means, create entire process of firefox
+                return json.dumps({"error":"Card did not appeared!"})
             return json.dumps({"error":"Card did not appeared!"})
         
         name = self.__css_selector_or_not_found('.spl-spli-ftl-tit > h2')
@@ -114,7 +128,9 @@ class LinkedinSERP:
                 "course_tenure" : course_tenure
             }
         }
-        self.__dispose_driver() #close the browser and all its window
+
+        if not is_list:
+            self.__dispose_driver() #close the browser and all its window
         return json.dumps(data) #returns data in JSON format
 
         
@@ -124,14 +140,14 @@ class LinkedinSERP:
 def read_file(filename):
     URLS = list()
     with open(filename,'r',encoding='utf-8') as file:
-        URLS.extend(file.readlines())
+        URLS.extend([line for line in file if line != '' and line != '\n'])
         file.close()
     return URLS
 
 filename = 'file.txt'
-URL = read_file(filename)
-scraper = LinkedinSERP(URL[0])
-print(scraper.scrap())
+URLS = read_file(filename)
+scraper = LinkedinSERP()
+print(scraper.scrap_multiple(URLS))
 
 
 
