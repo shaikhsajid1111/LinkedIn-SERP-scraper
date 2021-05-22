@@ -1,7 +1,8 @@
+#!/usr/bin/env python3
 try:
     from selenium import webdriver
     #to add capabilities for chrome and firefox, import their Options with different aliases
-    from selenium.webdriver.chrome.options import Options as ChromeOptions   
+    from selenium.webdriver.chrome.options import Options as ChromeOptions
     from selenium.webdriver.firefox.options import Options as FirefoxOptions
     #import webdriver for downloading respective driver for the browser
     from webdriver_manager.chrome import ChromeDriverManager
@@ -17,8 +18,8 @@ class Initializer:
 
     def set_properties(self,browser_option):
         """adds capabilities to the driver"""
-        #browser_option.add_argument('--headless')   #runs browser in headless mode
-        browser_option.add_argument('--no-sandbox') 
+        browser_option.add_argument('--headless')   #runs browser in headless mode
+        browser_option.add_argument('--no-sandbox')
 
         browser_option.add_argument("--disable-dev-shm-usage")
         browser_option.add_argument('--ignore-certificate-errors')
@@ -30,17 +31,19 @@ class Initializer:
 
     def set_driver_for_browser(self,browser_name):
         """expects browser name and returns a driver instance"""
-        #if browser is suppose to be chrome 
+        #if browser is suppose to be chrome
         if browser_name.lower() == "chrome":
             browser_option = ChromeOptions()
             #automatically installs chromedriver and initialize it and returns the instance
-            return webdriver.Chrome(executable_path=ChromeDriverManager().install(),options=self.set_properties(browser_option))
+            return webdriver.Chrome(executable_path=ChromeDriverManager().install(),\
+              options=self.set_properties(browser_option))
         elif browser_name.lower() == "firefox":
             browser_option = FirefoxOptions()
             #automatically installs geckodriver and initialize it and returns the instance
-            return webdriver.Firefox(executable_path=GeckoDriverManager().install(),options=self.set_properties(browser_option))
+            return webdriver.Firefox(executable_path=GeckoDriverManager().install(),\
+              options=self.set_properties(browser_option))
         else:
-            #if browser_name is not chrome neither firefox than raise an exception 
+            #if browser_name is not chrome neither firefox than raise an exception
             raise Exception("Browser not supported!")
     def init(self):
         """returns driver instance"""
