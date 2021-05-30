@@ -64,7 +64,7 @@ class LinkedinSERP:
 
     def scrap(self,URL,is_list=False):
         """scraps the data from card"""
-        query = f'site:linkedin.com/in {URL.split("/")[-1]}'
+        query = f'site:linkedin.com {URL.split("/")[-1]}'
         navigate_url = f"https://www.bing.com/search?q={query}&setmkt=en-US"
         self.__navigate(navigate_url)
 

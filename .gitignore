@@ -1,4 +1,7 @@
 *.log
 __pycache__
 file.html
-
+*.json
+*.txt
+/images
+*.csv
