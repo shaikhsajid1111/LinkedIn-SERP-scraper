@@ -23,10 +23,9 @@ For example, if user wants to scrap this URL<code> https://in.linkedin.com/in/ko
 </div>
 <br>
 
-
 <hr>
 <div>
-<h2>To scrap multiple linkedin profile: </h2>
+<h3>To scrap multiple linkedin profile: </h3>
 <code>$ python3 script.py --filename < filepath > </code>
 
 <br>
@@ -37,7 +36,7 @@ For example, if user wants to scrap this URL<code> https://in.linkedin.com/in/ko
 <hr>
 </div>
 <div>
-<h2>Help: </h2>
+<h3>Help: </h3>
 <code>$ python3 script.py -h</code>
 </div>
 <br>
