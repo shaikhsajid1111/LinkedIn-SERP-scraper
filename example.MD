@@ -33,13 +33,19 @@ The above code scrapes linkedin profile with username <b>charlesashworth</b>
 Contents of
 <code>linkedin_profiles.csv</code>:
 <code>
-<br>
+
 https://www.linkedin.com/in/michaeljcase
-<br>
-https://www.linkedin.com/in/kun-du-3456a0150 <br>
-https://www.linkedin.com/in/duane-singh-72966165 <br>
-https://www.linkedin.com/in/colepcannon <br>
-https://www.linkedin.com/in/duane-singh <br>
+    </code> <br>
+    <code>
+https://www.linkedin.com/in/kun-du-3456a0150 </code>
+    <br>
+    <code>
+        https://www.linkedin.com/in/duane-singh-72966165 </code><br>
+    <code>
+https://www.linkedin.com/in/colepcannon 
+    </code><br>
+    <code>
+https://www.linkedin.com/in/duane-singh 
 </code>
 <br>
 <br>
