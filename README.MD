@@ -12,13 +12,15 @@
 <h2>In the project directory:</h2>
 <br>
 <h3>To scrap single linkedin profile: </h3>
-<code>$ python3 script.py --linkedin_url < url > </code>
+<code>$ python3 script.py --linkedin_url < url > --use_browser < browser_name ></code>
 <br>
 <b>Argument:</b>
 <li><code>linkedin_url</code> is the linkedin profile URL.
 For example, if user wants to scrap this URL<code> https://in.linkedin.com/in/koushik-majumder-6172b412a
  </code>, the command line argument will look like <br><code>python3 script.py --linkedin_url https://in.linkedin.com/in/koushik-majumder-6172b412a
 </code>
+</li>
+<li><code>--use_browser</code> is an optional argument, if not passed firefox will be used by default, other option available is Google Chrome.
 </li>
 </div>
 <br>
@@ -31,8 +33,11 @@ For example, if user wants to scrap this URL<code> https://in.linkedin.com/in/ko
 <br>
 <b>Argument:</b>
 <li><code>filename</code> is the path of the CSV file which contains all profile URLs separated by newline. For example: <code>file.csv</code> is located at <code>/usr/documents/file.csv </code> </li> then the command line argument will look like <br>
-<code> python3 script.py --filename /usr/documents/file.csv </code>
+<li><code>--use_browser</code> is an optional argument, if not passed firefox will be used by default, other option available is Google Chrome.
+</li> <br>
+<code> python3 script.py --filename /usr/documents/file.csv --use_browser firefox </code>
 <br>
+Above code will use firefox by default and will scrap all linkedin profiles inside <code>file.csv</code>
 <hr>
 </div>
 <div>

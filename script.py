@@ -11,7 +11,7 @@ from random import randint
 import argparse
 
 class LinkedinSERP:
-    def __init__(self,browser="firefox"):
+    def __init__(self,browser):
         self.browser = browser
         self.driver = ''
 
@@ -158,16 +158,20 @@ if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument("--filename",help="Input CSV File which contains all the linked URLs")
   parser.add_argument("--linkedin_url",help="Single LinkedIn Profile URL")
+  parser.add_argument("--use_browser",help="Which browser to use for scraping?, Firefox And \
+  Chrome only available, default is set to Firefox")
   args = parser.parse_args()
   filename = args.filename
   linkedin_url = args.linkedin_url
-  scraper = LinkedinSERP()
+  use_browser = "firefox" if args.use_browser is None else args.use_browser
+  scraper = LinkedinSERP(use_browser)
 
   if filename is not None:
     URLS = read_file(filename)
     data = scraper.scrap_multiple(URLS)
   elif linkedin_url is not None:
     data = scraper.scrap(linkedin_url)
+
   else:
     print("Please try python3 script.py -h for help")
     exit()
